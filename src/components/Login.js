@@ -5,20 +5,18 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const { googleSignIn } = useUserAuth();
 
-
-  const [error , setError] = useState(null);
- 
+  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
   const handleGoogleSignIn = async (e) => {
     e.preventDefault();
     try {
-      await googleSignIn ();
+      await googleSignIn();
       navigate("/home");
+       console.log('login successful');
     } catch (error) {
-       
-         setError(error);
+      setError(error);
     }
   };
 
@@ -26,11 +24,7 @@ const Login = () => {
     <>
       <div>Login</div>
 
-      <GoogleButton
-        className="g-btn"
-        type="dark"
-        onClick={handleGoogleSignIn}
-      />
+      <button onClick={handleGoogleSignIn}>Sign in Google</button>
     </>
   );
 };
