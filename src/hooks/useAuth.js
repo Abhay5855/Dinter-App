@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup , onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
 
 const userAuthContext = createContext();
@@ -11,7 +11,7 @@ export function UserAuthContextProvider({ children }) {
   }
 
   return (
-    <userAuthContext.Provider value={{ googleSignIn }}>
+    <userAuthContext.Provider value={{ user: null, googleSignIn }}>
       {children}
     </userAuthContext.Provider>
   );
