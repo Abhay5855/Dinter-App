@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import GoogleButton from "react-google-button";
 import { useUserAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 const Login = () => {
   const { googleSignIn } = useUserAuth();
 
-  console.log("Heena");
+
+  const [error , setError] = useState(null);
+ 
+
   const navigate = useNavigate();
 
   const handleGoogleSignIn = async (e) => {
@@ -14,7 +17,8 @@ const Login = () => {
       await googleSignIn ();
       navigate("/home");
     } catch (error) {
-      console.log(error.message);
+       
+         setError(error);
     }
   };
 
