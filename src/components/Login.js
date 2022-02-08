@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import GoogleButton from "react-google-button";
 import { useUserAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import './login.css'
 const Login = () => {
   const { googleSignIn } = useUserAuth();
 
@@ -22,9 +22,9 @@ const Login = () => {
 
   return (
     <>
-      <div>Login</div>
+      {/* <div>Login</div>
 
-      <button onClick={handleGoogleSignIn}>Sign in Google</button>
+      <button onClick={handleGoogleSignIn}>Sign in Google</button> */}
     </>
   );
 };
