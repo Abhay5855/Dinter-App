@@ -1,10 +1,10 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBIYK4BF_l6_6vZwkmKKXwaptGiMn4qXpA",
+  apiKey: "zaSyBIYK4B_6vZwkmKKXwaptGiMn4qXpA",
   authDomain: "dinder-app-da6cf.firebaseapp.com",
   projectId: "dinder-app-da6cf",
   storageBucket: "dinder-app-da6cf.appspot.com",
@@ -14,3 +14,5 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+export const auth = getAuth(app);
