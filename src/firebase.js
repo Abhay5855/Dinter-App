@@ -4,7 +4,7 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "zaSyBIYK4B_6vZwkmKKXwaptGiMn4qXpA",
+  apiKey: "AIzaSyBIYK4BF_l6_6vZwkmKKXwaptGiMn4qXpA",
   authDomain: "dinder-app-da6cf.firebaseapp.com",
   projectId: "dinder-app-da6cf",
   storageBucket: "dinder-app-da6cf.appspot.com",

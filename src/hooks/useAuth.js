@@ -1,30 +1,22 @@
-import { createContext, useContext } from "react";
-import {signInWithPopup, GoogleAuthProvider, GoogleAuthProvider } from "firebase/auth";
-import {auth} from '../firebase'
+import { createContext, useContext, useEffect, useState } from "react";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../firebase";
 
-export const AuthProvider = ({ children }) => {
-  const AuthContext = createContext({});
+const userAuthContext = createContext();
 
-
-  //creating a function for google signin
-
-  function googleSignin() {
-
-           const GoogleAuthProvider = new GoogleAuthProvider();
-
-           return signInWithPopup(auth , GoogleAuthProvider);
+export function UserAuthContextProvider({ children }) {
+  function googleSignIn() {
+    const googleAuthProvider = new GoogleAuthProvider();
+    return signInWithPopup(auth, googleAuthProvider);
   }
 
-
   return (
-    <>
-      <AuthContext.Provider value={googleSignin}>
-        {children}
-      </AuthContext.Provider>
-    </>
+    <userAuthContext.Provider value={{ googleSignIn }}>
+      {children}
+    </userAuthContext.Provider>
   );
-};
+}
 
-export default function useAuth() {
-  return useContext(AuthProvider);
+export function useUserAuth() {
+  return useContext(userAuthContext);
 }
