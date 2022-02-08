@@ -1,23 +1,16 @@
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBIYK4BF_l6_6vZwkmKKXwaptGiMn4qXpA",
+  authDomain: "dinder-app-da6cf.firebaseapp.com",
+  projectId: "dinder-app-da6cf",
+  storageBucket: "dinder-app-da6cf.appspot.com",
+  messagingSenderId: "424109467127",
+  appId: "1:424109467127:web:0d1362d3b58f4d690fbaf2"
+};
 
-import firebase from 'firebase/app';
-
-import 'firebase/firestore';
-
-const config = {
-    apiKey: "AIzaSyCOtcBXe7y4f6TX6k88JDqUiTEIR8D48zM",
-    authDomain: "developers-tinder.firebaseapp.com",
-    projectId: "developers-tinder",
-    storageBucket: "developers-tinder.appspot.com",
-    messagingSenderId: "760126605894",
-    appId: "1:760126605894:web:b9acc54133f832d00e9847"
-  };
-
-  firebase.initializeApp(config);
-
-  window.firebase = firebase;
-
-
-  export const db = firebase.firestore();
-
-  export default firebase;
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
