@@ -4,6 +4,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserAuth } from '../hooks/useAuth';
+import { Swipeable, direction } from 'react-deck-swiper';
 import './home.css';
 
 const HomeScreen = () => {
@@ -59,6 +60,14 @@ const HomeScreen = () => {
 
 
       </nav>
+
+      <div>
+      <Swipeable>
+      <div className="card">
+        Your card content here
+      </div>
+    </Swipeable>
+      </div>
 
 
 
