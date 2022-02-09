@@ -55,9 +55,10 @@ const onCardLeftScreen = (myIdentifier) => {
           onSwipe={onSwipe}
           onCardLeftScreen={() => onCardLeftScreen("fooBar")}
           preventSwipe={["top", "bottom"]}
+          className='swipe'
         >
-          <div className="card__image">
-          
+          <div className="card__image" style={{backgroundImage : `url(${user.photoURL})`}}>
+        
           </div>
         </TinderCard>
       </div>
