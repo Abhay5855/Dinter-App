@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./modal.css";
 import { useUserAuth } from "../../hooks/useAuth";
 
@@ -6,6 +6,13 @@ const Modal = () => {
 
         // Calling the user 
         const {user} = useUserAuth();
+
+        //calling the states
+        const [profile , setProfile] = useState('')
+        const [devlink , setDevlink] = useState('')
+        const [age , setAge] = useState('')
+        const [experience , setExperience] = useState('');
+        const [job , setJob] = useState('');
 
       const handleSubmit = (e) => {
 
