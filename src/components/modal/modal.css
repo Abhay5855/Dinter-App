@@ -1,0 +1,23 @@
+
+
+
+:root {
+    --text : #FE3B61;
+    --placeholder:#506A97;
+
+}
+
+.modal__links p {
+
+     color: var(--text);
+     font-weight: 700;
+     font-size: 0.7rem;
+
+}
+
+.modal__links input {
+     color: var(--placeholder);
+     border: none;
+     outline: none;
+
+}
