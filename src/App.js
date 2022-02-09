@@ -9,6 +9,7 @@ import Publicroutes from "./components/routes/Publicroutes";import {
 import ChatScreen from "./components/ChatScreen";
 import HomeScreen from "./components/HomeScreen";
 import Login from "./components/Login";
+import Card from './components/Card'
 function App() {
   return (
     <div className="App">
@@ -19,6 +20,9 @@ function App() {
 
             <Route path="/home" element={<HomeScreen />}></Route>
             <Route path="/" element={<Login />}></Route>
+
+            <Route path="/card" element={<Card />}></Route>
+
           </Routes>
         </BrowserRouter>
 

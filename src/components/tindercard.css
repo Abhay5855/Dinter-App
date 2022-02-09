@@ -1,0 +1,100 @@
+
+:root {
+    --background: #000 ;
+    --chat : #FE3C72;
+}
+
+
+.home__avatar img {
+ width: 30px;
+ height: 30px;
+ border-radius: 50%;
+}
+
+.home__logo img {
+
+width: 30px;
+ height: 30px;
+ border-radius: 50%;
+}
+
+.home__chat i {
+
+    font-size: 30px;
+     
+}
+
+nav {
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7rem;
+}
+
+
+
+
+.card__image {
+
+    position: relative;
+    /* width:600px; */
+    max-width:85vw;
+    /* height: 60vh; */
+    padding:20px;
+    border-radius: 18px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-image: url('../assets//images/undraw_couple_re_94tl.svg'); */
+    width: 200px;
+	height: 250px;
+	object-fit: cover;
+	object-position: 50% 50%;
+    
+}
+
+.swipe {
+     position: absolute;
+}
+ 
+.home__cards {
+
+      display: flex;
+      justify-content: center;
+      margin-top: 3vh;
+      
+}
+
+.chat__icon {
+      color: var(--chat);
+      font-size: 1rem;
+}
+
+@media screen and (max-width : 550px){
+
+    .home__cards {
+
+        margin-top: 4vh;
+  }
+
+  .card__image {
+
+    position: relative;
+    /* width:600px; */
+    max-width:85vw;
+    /* height: 60vh; */
+    padding:13px;
+    border-radius: 18px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-image: url('../assets//images/undraw_couple_re_94tl.svg'); */
+    width: 150px;
+	height: 200px;
+	object-fit: cover;
+	object-position: 50% 50%;
+    
+}
+
+}
