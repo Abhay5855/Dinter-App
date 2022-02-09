@@ -1,7 +1,18 @@
 import React from "react";
 import "./modal.css";
+import { useUserAuth } from "../../hooks/useAuth";
 
 const Modal = () => {
+
+        // Calling the user 
+        const {user} = useUserAuth();
+
+      const handleSubmit = (e) => {
+
+         e.preventDefault();
+
+      }
+
   return (
     <div className="modal__container">
 
@@ -9,7 +20,11 @@ const Modal = () => {
             <img src='https://tinder.com/static/build/6dcd593a7d278a1a1e52eff1f03365bb.svg' alt='logo'/>
         </div>
 
-        <form autoComplete="off">
+        {/* <p className="welcome">Welcome {user.displayName}</p> */}
+
+        <form autoComplete="off" onSubmit={handleSubmit}>
+
+
 
         
 
@@ -36,7 +51,7 @@ const Modal = () => {
       <div className="modal__links">
         <p>Step 5: Enter Total Experience</p>
 
-        <input placeholder="Enter A Profile Pic URl" type="text" />
+        <input placeholder="Enter A Profile Pic URL" type="text" />
       </div>
      
           
