@@ -8,7 +8,7 @@ import './home.css';
 
 const HomeScreen = () => {
 
-  fontawesome.library.add(faMessage);
+ 
 
   const { googleSignout, user } = useUserAuth();
 
