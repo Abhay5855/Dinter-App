@@ -3,7 +3,7 @@ import { useUserAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import './login.css'
 const Login = () => {
-  const { googleSignIn } = useUserAuth();
+  const { googleSignIn, user } = useUserAuth();
 
   const [error, setError] = useState(null);
 
@@ -22,9 +22,22 @@ const Login = () => {
 
   return (
     <>
-      {/* <div>Login</div>
 
-      <button onClick={handleGoogleSignIn}>Sign in Google</button> */}
+    <div className="login__container"> 
+
+       <div className="desc">
+
+
+          
+
+         
+      
+       </div>
+
+    </div>
+      <div>Login</div>
+
+      <button onClick={handleGoogleSignIn}>Sign in Google</button>
     </>
   );
 };

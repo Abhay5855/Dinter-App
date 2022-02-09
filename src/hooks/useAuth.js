@@ -38,6 +38,7 @@ export function UserAuthContextProvider({ children }) {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
+        console.log('user');
       } else {
         setUser(null);
       }
