@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../hooks/useAuth";
 import TinderCard from "react-tinder-card";
@@ -34,6 +34,15 @@ const onCardLeftScreen = (myIdentifier) => {
 }
 
 
+
+ 
+
+  // {
+  //   people.map((item) => {
+  //       console.log(item.url);
+  //   })
+  // }
+
   return (
     <div className="home__container">
       <nav>
@@ -53,18 +62,6 @@ const onCardLeftScreen = (myIdentifier) => {
 
       {/* react card */}
 
-      <div className="home__cards">
-        <TinderCard
-          onSwipe={onSwipe}
-          onCardLeftScreen={() => onCardLeftScreen("fooBar")}
-          preventSwipe={["top", "bottom"]}
-          className='swipe'
-        >
-          <div className="card__image" style={{backgroundImage : `url(${user.photoURL})`}}>
-        
-          </div>
-        </TinderCard>
-      </div>
     </div>
   );
 };
