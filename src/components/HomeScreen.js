@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../hooks/useAuth";
 import TinderCard from "react-tinder-card";
-import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
+import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
+import Card from "./Card";
 import "./home.css";
 
 const HomeScreen = () => {
@@ -22,20 +23,15 @@ const HomeScreen = () => {
     }
   };
 
-
   //tinder cards
-  
-const onSwipe = (direction) => {
-  console.log('You swiped: ' + direction)
-}
 
-const onCardLeftScreen = (myIdentifier) => {
-  console.log(myIdentifier + ' left the screen')
-}
+  const onSwipe = (direction) => {
+    console.log("You swiped: " + direction);
+  };
 
-
-
- 
+  const onCardLeftScreen = (myIdentifier) => {
+    console.log(myIdentifier + " left the screen");
+  };
 
   // {
   //   people.map((item) => {
@@ -56,12 +52,12 @@ const onCardLeftScreen = (myIdentifier) => {
           />
         </div>
         <div className="home__chat">
-          <ChatBubbleIcon className='chat__icon'/>
+          <ChatBubbleIcon className="chat__icon" />
         </div>
       </nav>
 
       {/* react card */}
-
+      <Card />
     </div>
   );
 };
