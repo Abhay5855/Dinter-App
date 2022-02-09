@@ -4,14 +4,36 @@
 :root {
     --text : #FE3B61;
     --placeholder:#506A97;
+    --button : #FF4458;
+    --btn_color : #fff;
 
 }
 
+.modal__container {
+
+     padding: 0.5rem;
+     flex: 1;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+}
+
+.modal__logo img {
+      
+         width: 150px;
+
+}
+
+.modal__links {
+      margin:0.3rem;
+}
 .modal__links p {
 
      color: var(--text);
      font-weight: 700;
      font-size: 0.7rem;
+     text-align: center;
 
 }
 
@@ -19,5 +41,23 @@
      color: var(--placeholder);
      border: none;
      outline: none;
+     text-align: center;
 
+}
+
+.update__btn {
+
+     position: absolute;
+     bottom: 5%;
+     padding: 0.5rem;
+     width: 190px;
+     border-radius: 6px;
+     outline: none;
+     border: none;
+     background-color: var(--button);
+     color: var(--btn_color);
+     cursor: pointer;
+
+
+     
 }

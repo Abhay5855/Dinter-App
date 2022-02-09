@@ -4,6 +4,15 @@ import "./modal.css";
 const Modal = () => {
   return (
     <div className="modal__container">
+
+        <div className="modal__logo">
+            <img src='https://tinder.com/static/build/6dcd593a7d278a1a1e52eff1f03365bb.svg' alt='logo'/>
+        </div>
+
+        <form autoComplete="off">
+
+        
+
       <div className="modal__links">
         <p>Step 1: The Profile Pic</p>
 
@@ -29,11 +38,13 @@ const Modal = () => {
 
         <input placeholder="Enter A Profile Pic URl" type="text" />
       </div>
-      <div className="modal__links">
-        <p>Step 6: Enter Social Networks</p>
+     
+          
+      <button className="update__btn" type="submit">Add Changes</button>
 
-        <input placeholder="Enter A Linkedin/Twitter URL" type="text" />
-      </div>
+     
+
+      </form>
     </div>
   );
 };
