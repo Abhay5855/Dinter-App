@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../hooks/useAuth";
 import TinderCard from "react-tinder-card";
+import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import "./home.css";
 
 const HomeScreen = () => {
@@ -45,7 +46,9 @@ const onCardLeftScreen = (myIdentifier) => {
             alt="logo"
           />
         </div>
-        <div className="home__chat"></div>
+        <div className="home__chat">
+          <ChatBubbleIcon className='chat__icon'/>
+        </div>
       </nav>
 
       {/* react card */}
