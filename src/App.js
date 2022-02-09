@@ -9,6 +9,7 @@ import Publicroutes from "./components/routes/Publicroutes";import {
 import ChatScreen from "./components/ChatScreen";
 import HomeScreen from "./components/HomeScreen";
 import Login from "./components/Login";
+import Modal from "./components/modal/Modal"
 import Card from './components/Card'
 function App() {
   return (
@@ -22,6 +23,14 @@ function App() {
             <Route path="/" element={<Login />}></Route>
 
             <Route path="/card" element={<Card />}></Route>
+
+            
+            <Route path="/card" element={<Card />}></Route>
+
+
+            <Route path="/modal" element={<Modal />}></Route>
+
+            
 
           </Routes>
         </BrowserRouter>
