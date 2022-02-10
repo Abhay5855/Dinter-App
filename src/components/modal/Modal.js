@@ -34,19 +34,8 @@ const Modal = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const data = {
-        age : age,
-        job : job,
-        experience : experience,
-        devlink : devlink,
-        name : user.displayName,
-        id : user.uid,
-        profile : profile,
-
-
-    }
-
-    console.log(data);
+    
+    // storing the users into firebase database
 
     setDoc(doc(db, 'users', user.uid), {
         id : user.uid,
@@ -56,11 +45,11 @@ const Modal = () => {
         experience : experience,
         job : job,
         devlink : devlink,
-        // timestamp : serverTimestamp,
+        timestamp : serverTimestamp(),
         
       })
       .then(() => {
-          console.log('success');
+          navigate('/home')
       })
       .catch((err) => {
            console.log(err.message);
