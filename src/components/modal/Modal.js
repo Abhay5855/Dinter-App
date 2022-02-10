@@ -68,6 +68,9 @@ const Modal = () => {
 
   };
 
+  // if form is incomplete
+   const incompleteForm = !age || !job || !devlink;
+
 
 
 
@@ -136,7 +139,7 @@ const Modal = () => {
           />
         </div>
 
-        <button className="update__btn" type="submit">
+        <button className="update__btn" type="submit" disabled={incompleteForm} >
           Add Changes
         </button>
       </form>

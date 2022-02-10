@@ -43,7 +43,6 @@ const Card = () => {
           key={item.name}
           // onSwipe={onSwipe}s
           onSwipe={onSwipe}
-          onCardLeftScreen={() =>  console.log('left')}
           preventSwipe={["up", "down"]}
           className="swipe"
         >
