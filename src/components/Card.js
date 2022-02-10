@@ -61,8 +61,14 @@ const Card = () => {
             
 
             <div className="details2">
-          <p>{item.age}</p>
-          <p>Job : MihoLearn</p>
+             
+              <span>Age: {item.age}</span>
+              <span>Job: MihoLearn</span>
+             
+           
+
+            
+        
           </div>
           </div>
 
