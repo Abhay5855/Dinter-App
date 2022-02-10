@@ -3,6 +3,7 @@ import "./modal.css";
 import { useUserAuth } from "../../hooks/useAuth";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore"; 
 import { db } from "../../firebase";
+import { useNavigate } from "react-router-dom";
 
 const Modal = () => {
   // Calling the user
@@ -15,11 +16,13 @@ const Modal = () => {
   const [experience, setExperience] = useState("");
   const [job, setJob] = useState("");
 
+    const navigate = useNavigate();
+
   const handleGoogleSignIn = async (e) => {
     e.preventDefault();
     try {
       await googleSignIn();
-      // navigate("/home");
+      navigate("/home");
        console.log('login successful');
     } catch (error) {
       // setError(error);

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../hooks/useAuth";
-import TinderCard from "react-tinder-card";
 import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
 import Card from "./Card";
 import "./home.css";
+
 
 const HomeScreen = () => {
   const { googleSignout, user } = useUserAuth();
@@ -33,11 +33,7 @@ const HomeScreen = () => {
     console.log(myIdentifier + " left the screen");
   };
 
-  // {
-  //   people.map((item) => {
-  //       console.log(item.url);
-  //   })
-  // }
+  
 
   return (
     <div className="home__container">
@@ -55,6 +51,8 @@ const HomeScreen = () => {
           <ChatBubbleIcon className="chat__icon" />
         </div>
       </nav>
+
+      
 
       {/* react card */}
       <Card />

@@ -2,6 +2,18 @@
 :root {
     --background: #000 ;
     --chat : #FE3C72;
+    --details:#FAF9F6;
+}
+
+/* details section */
+.details {
+
+
+  background-color:var(--details);
+  border-bottom-left-radius:6px;
+  border-bottom-right-radius: 6px;
+  padding: 0.4rem;
+
 }
 
 
@@ -24,6 +36,10 @@ width: 30px;
      
 }
 
+
+.left {
+     color: red;
+}
 nav {
 
       display: flex;
@@ -39,16 +55,17 @@ nav {
 
     position: relative;
     /* width:600px; */
-    max-width:85vw;
+    max-width:60vw;
     /* height: 60vh; */
     padding:20px;
-    border-radius: 18px;
+    border-top-right-radius: 6px;
+    border-top-left-radius:6px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     /* background-image: url('../assets//images/undraw_couple_re_94tl.svg'); */
     width: 200px;
-	height: 250px;
+	height: 200px;
 	object-fit: cover;
 	object-position: 50% 50%;
     
@@ -56,13 +73,15 @@ nav {
 
 .swipe {
      position: absolute;
+     /* border-radius: 18px; */
 }
  
 .home__cards {
 
       display: flex;
       justify-content: center;
-      margin-top: 3vh;
+      
+      
       
 }
 
@@ -70,6 +89,8 @@ nav {
       color: var(--chat);
       font-size: 1rem;
 }
+
+
 
 @media screen and (max-width : 550px){
 
@@ -82,7 +103,7 @@ nav {
 
     position: relative;
     /* width:600px; */
-    max-width:85vw;
+    max-width:50vw;
     /* height: 60vh; */
     padding:13px;
     border-radius: 18px;
@@ -93,7 +114,7 @@ nav {
     width: 150px;
 	height: 200px;
 	object-fit: cover;
-	object-position: 50% 50%;
+	/* object-position: 50% 50%; */
     
 }
 
