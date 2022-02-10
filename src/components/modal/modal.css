@@ -1,106 +1,76 @@
-
-
-
 :root {
-    --text : #FE3B61;
-    --placeholder:#506A97;
-    --button : #FF4458;
-    --btn_color : #fff;
-    --welcome :#141C36;
-
+  --text: #fe3b61;
+  --placeholder: #506a97;
+  --button: #ff4458;
+  --btn_color: #fff;
+  --welcome: hsl(226, 46%, 15%);
+  --disabled:#eea2aa;
 }
 
 .modal__container {
-
-     padding: 0.5rem;
-     flex: 1;
-     display: flex;
-     flex-direction: column;
-     justify-content: center;
-     align-items: center;
+  padding: 0.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal__logo img {
-      
-         width: 150px;
-
+  width: 150px;
 }
 
 .modal__links {
-      margin:0.3rem;
+  margin: 0.3rem;
 }
 
-
-.welcome{
-    color: var(--welcome);
+.welcome {
+  color: var(--welcome);
 }
 
-.modal__links  p {
-
-     color: var(--text);
-     font-weight: 700;
-     font-size: 0.7rem;
-     text-align: center;
-
+.modal__links p {
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.7rem;
+  text-align: center;
 }
 
 .modal__links input {
-     color: var(--placeholder);
-     border: none;
-     outline: none;
-     text-align: center;
-
+  color: var(--placeholder);
+  border: none;
+  outline: none;
+  text-align: center;
 }
 
 .update__btn {
-
-     position: absolute;
-     bottom: 5%;
-     padding: 0.5rem;
-     width: 190px;
-     border-radius: 6px;
-     outline: none;
-     border: none;
-     background-color: var(--button);
-     color: var(--btn_color);
-     cursor: pointer;
-
-
-     
+  position: absolute;
+  bottom: 5%;
+  padding: 0.5rem;
+  width: 190px;
+  border-radius: 6px;
+  outline: none;
+  border: none;
+  background-color: var(--button);
+  color: var(--btn_color);
+  cursor: pointer;
 }
 
+.update__btn:disabled{
+    background-color:var(--disabled);
+
+    color:var(--btn_color);
+    cursor: no-drop;
+ }
 
 @media (max-width: 550px) {
-
-
-    .modal__container {
-
-        
-       
-   }
-
-   .modal__links  p {
-
-   
+  .modal__links p {
     font-weight: 700;
     font-size: 6rem;
     text-align: center;
+  }
 
-}
-
-
-.update__btn {
-
+  .update__btn {
     position: absolute;
     bottom: 40%;
-   
-
-
-    
-}
-
-     
-
-
-    
+  }
 }
