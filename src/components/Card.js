@@ -3,7 +3,7 @@ import "./tindercard.css";
 import TinderCard from "react-tinder-card";
 
 const Card = () => {
-  console.log("these are cards");
+  
 
   const [people, setPeople] = useState([
     {
@@ -26,6 +26,11 @@ const Card = () => {
       Github : 'Abhay5855'
     },
   ]);
+
+  const onSwipe = (direction) => {
+    console.log('You swiped: ' + direction);
+    console.log('swipe');
+  }
   return (
     <>
     <div className="home__cards">
@@ -37,8 +42,9 @@ const Card = () => {
         <TinderCard
           key={item.name}
           // onSwipe={onSwipe}s
-          // onCardLeftScreen={() => onCardLeftScreen("fooBar")}
-          preventSwipe={["top", "bottom"]}
+          onSwipe={onSwipe}
+          onCardLeftScreen={() =>  console.log('left')}
+          preventSwipe={["up", "down"]}
           className="swipe"
         >
 
