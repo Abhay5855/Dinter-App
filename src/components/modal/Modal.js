@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./modal.css";
 import { useUserAuth } from "../../hooks/useAuth";
-import { doc, setDoc } from "firebase/firestore"; 
+import { doc, serverTimestamp, setDoc } from "firebase/firestore"; 
+import { db } from "../../firebase";
 
 const Modal = () => {
   // Calling the user
-  const { user } = useUserAuth();
+  const { user, googleSignIn } = useUserAuth();
 
   //calling the states
   const [profile, setProfile] = useState("");
@@ -14,9 +15,58 @@ const Modal = () => {
   const [experience, setExperience] = useState("");
   const [job, setJob] = useState("");
 
+  const handleGoogleSignIn = async (e) => {
+    e.preventDefault();
+    try {
+      await googleSignIn();
+      // navigate("/home");
+       console.log('login successful');
+    } catch (error) {
+      // setError(error);
+    }
+  };
+    // update the Profile
+   
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const data = {
+        age : age,
+        job : job,
+        experience : experience,
+        devlink : devlink,
+        name : user.displayName,
+        id : user.uid,
+        profile : profile,
+
+
+    }
+
+    console.log(data);
+
+    setDoc(doc(db, 'users', user.uid), {
+        id : user.uid,
+        name : user.displayName,
+        photoURL : profile,
+        age : age,
+        experience : experience,
+        job : job,
+        devlink : devlink,
+        // timestamp : serverTimestamp,
+        
+      })
+      .then(() => {
+          console.log('success');
+      })
+      .catch((err) => {
+           console.log(err.message);
+      })
+
   };
+
+
+
 
   return (
     <div className="modal__container">
@@ -26,6 +76,8 @@ const Modal = () => {
           alt="logo"
         />
       </div>
+
+      <button onClick={handleGoogleSignIn}>Sign in Google</button>
 
       {/* <p className="welcome">Welcome {user.displayName}</p> */}
 
