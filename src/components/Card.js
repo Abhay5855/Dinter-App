@@ -1,8 +1,16 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import "./tindercard.css";
 import TinderCard from "react-tinder-card";
+import { onSnapshot } from "firebase/firestore";
+import { doc} from "firebase/firestore"; 
+import { db } from "../firebase";
+import { useUserAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Card = () => {
+
+   const {user} = useUserAuth();
+
   const [people, setPeople] = useState([
     {
       name: "Rutkar",
@@ -25,6 +33,29 @@ const Card = () => {
     },
   ]);
 
+
+  const navigate = useNavigate();
+
+  // get the stored users from the firebase database;
+  useLayoutEffect(() => {
+
+    onSnapshot(doc(db, 'users' , user.uid) , (snapshot) => {
+
+         console.log(snapshot);
+
+         if(!snapshot.exists){
+
+            navigate('/modal');
+
+         }
+    })
+
+
+
+  },[])
+  
+
+  //function to check the direaction of the swipe
   const onSwipe = (direction) => {
     console.log("You swiped: " + direction);
     console.log("swipe");
