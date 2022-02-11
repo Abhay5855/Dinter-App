@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import "./tindercard.css";
 import TinderCard from "react-tinder-card";
 import { collection, onSnapshot } from "firebase/firestore";
-import { doc , setDoc} from "firebase/firestore";
+import { doc , setDoc , getDocs} from "firebase/firestore";
 import { db } from "../firebase";
 import { useUserAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
@@ -50,6 +50,15 @@ const Card = () => {
   // get the users from fireabsee database
   useEffect(() => {
     let unsubscribe;
+          
+
+    const passes = getDocs(collection (db, 'users' , user.uid , 'passes')).then((snapshot) => {
+           snapshot.docs.map(doc => doc.id);
+    })
+     //array of stored ids
+
+     const passedUserIds = passes.length > 0 ? passes : ['test']
+     
 
     const fetchData = async () => {
       unsubscribe = onSnapshot(collection(db, "users"), (snapshot) => {
