@@ -116,6 +116,13 @@ nav {
      color: var(--background);
 }
 
+.defaultindercard__container {
+    background-color: var(--card);
+     padding: 0.3rem;
+     border-radius: 8px;
+     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
 @media screen and (max-width : 550px){
 
     .home__cards {

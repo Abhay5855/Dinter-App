@@ -4,6 +4,7 @@
     --chat : #FE3C72;
     --details:#FE4357;
     --text:#fff;
+    --card : #F8F8FF;
 
 }
 
@@ -112,6 +113,13 @@ nav {
 .details1 a {
      text-decoration: none;
      color: var(--background);
+}
+
+.tindercard__container {
+     /* background-color: var(--card);
+     padding: 0.3rem;
+     border-radius: 8px;
+     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2); */
 }
 
 @media screen and (max-width : 550px){

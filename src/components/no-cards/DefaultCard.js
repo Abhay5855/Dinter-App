@@ -17,7 +17,11 @@ const DefaultCard = () => {
             preventSwipe={["up", "down"]}
             className="swipe"
           >
-            <div className="tindercard__container">
+            <div className="defaultindercard__container">
+
+              <div className='details1'>
+                <p>NO CARDS</p>
+              </div>
               <div
                 className="card__image"
                 
