@@ -2,66 +2,52 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import "./tindercard.css";
 import TinderCard from "react-tinder-card";
 import { collection, onSnapshot } from "firebase/firestore";
-import { doc} from "firebase/firestore"; 
+import { doc } from "firebase/firestore";
 import { db } from "../firebase";
 import { useUserAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 const Card = () => {
+  const { user } = useUserAuth();
 
-   const {user} = useUserAuth();
-
-   const [profiles , setProfiles] = useState([]);
-
- 
-
+  const [profiles, setProfiles] = useState([]);
 
   const navigate = useNavigate();
 
   // check if the users are present  from the firebase database;
   useLayoutEffect(() => {
+    onSnapshot(doc(db, "users", user.uid), (snapshot) => {
+      console.log(snapshot);
 
-    onSnapshot(doc(db, 'users' , user.uid) , (snapshot) => {
-
-         console.log(snapshot);
-
-         if(!snapshot.exists){
-
-            navigate('/modal');
-
-         }
-    })
-
-
-
-  },[])
+      if (!snapshot.exists) {
+        navigate("/modal");
+      }
+    });
+  }, []);
 
   // get the users from fireabsee databvase
   useEffect(() => {
-       let unsubscribe;
+    let unsubscribe;
 
-       const fetchData = async() => {
+    const fetchData = async () => {
+      unsubscribe = onSnapshot(collection(db, "users"), (snapshot) => {
+        setProfiles(
+          snapshot.docs
+          .filter((doc) => doc.id !== user.uid)
+          .map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }))
+        );
+      });
+    };
 
-           unsubscribe = onSnapshot(collection(db , 'users'), snapshot => {
+    fetchData();
 
-                 setProfiles(
-                   snapshot.docs.map(doc => ({
+    return unsubscribe;
+  }, []);
 
-                        id : doc.id,
-                        ...doc.data(),
-                   }))
-                 )
-           })
-
-       }
-
-       fetchData();
-
-       return unsubscribe;
-  },[])
-  
-
-  console.log(profiles , 'profiles')
+  console.log(profiles, "profiles");
 
   //function to check the direaction of the swipe
   const onSwipe = (direction) => {
