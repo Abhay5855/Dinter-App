@@ -11,6 +11,7 @@ import HomeScreen from "./components/HomeScreen";
 import Login from "./components/Login";
 import Modal from "./components/modal/Modal"
 import Card from './components/Card'
+import DefaultCard from "./components/no-cards/DefaultCard";
 function App() {
   return (
     <div className="App">
@@ -29,6 +30,8 @@ function App() {
 
 
             <Route path="/modal" element={<Modal />}></Route>
+
+            <Route path="/default" element={<DefaultCard/>}></Route>
 
             
 
