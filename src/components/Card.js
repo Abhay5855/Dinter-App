@@ -13,10 +13,8 @@ const Card = () => {
 
   const [profiles, setProfiles] = useState([]);
 
-  const [cards , setCards] = useState(true);
-  const onCardLeftScreen = (myIdentifier) => {
-    console.log(myIdentifier + " left the screen");
-  };
+
+
 
   // const [profiles, setProfiles] = useState([
   //   {
@@ -56,26 +54,21 @@ const Card = () => {
     let unsubscribe;
 
     const fetchData = async () => {
-      
       // passes consist of the passes that user swiped to the left -> nope
       const passes = await getDocs(
         collection(db, "users", user.uid, "passes")
       ).then((snapshot) => snapshot.docs.map((doc) => doc.id));
 
-  
       // swipes consist of the matches that user swiped right side -> match
       const swipes = await getDocs(
-				collection(db, 'users', user.uid, 'swipes')
-			).then((snapshot) => snapshot.docs.map((doc) => doc.id));
-
+        collection(db, "users", user.uid, "swipes")
+      ).then((snapshot) => snapshot.docs.map((doc) => doc.id));
 
       // Check the passes and swipes length and if exist pass the passes and swipes else pass an array with string -> note that array shoul not be passed empty.
-      const passedUserIds = passes.length > 0 ? passes : ['test'];
-			const swipedUserIds = swipes.length > 0 ? swipes : ['test'];
-     
+      const passedUserIds = passes.length > 0 ? passes : ["test"];
+      const swipedUserIds = swipes.length > 0 ? swipes : ["test"];
 
-
-      //check the ery method wethe the ids are peresent or not 
+      //check the ery method wethe the ids are peresent or not
       unsubscribe = onSnapshot(
         query(
           collection(db, "users"),
@@ -85,8 +78,7 @@ const Card = () => {
           setProfiles(
             snapshot.docs
               // First filter out so that our own profile should not be shown
-              .filter((doc) => doc.id !== user.uid
-              )
+              .filter((doc) => doc.id !== user.uid)
               .map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
@@ -100,9 +92,7 @@ const Card = () => {
 
     fetchData();
     // unsubscribe to the changes
-    return  unsubscribe;
-     
-    
+    return unsubscribe;
   }, [db]);
 
   //function to check the direaction of the swipe
@@ -124,16 +114,27 @@ const Card = () => {
       const userSwipped = profiles[idx];
 
       // Now If the user swipes right we need to get the user information from the db
-      const loggedInProfile = await (await getDocs(doc(db, 'users' , user.uid)).data())
-      
+      const loggedInProfile = await await getDocs(
+        doc(db, "users", user.uid)
+      ).data();
 
-      console.log(
-        `you matched with ${userSwipped.age} and ${userSwipped.displayName}`
-      );
- 
-      setDoc(
-        doc(db, "users", user.uid, "matches", userSwipped.id),
-        userSwipped
+      //Check wether the user has swipped on you
+      getDocs(doc(db, "users", userSwipped.id, user.uid)).then(
+        (documentSnapshot) => {
+          if (documentSnapshot.exists()) {
+            // user has matched with you before you matched with them
+            console.log(`HOORAY you matched with ${userSwipped.displayName}`);
+          } else {
+            console.log(
+              `you swipped on ${userSwipped.age} and ${userSwipped.displayName}`
+            );
+
+            setDoc(
+              doc(db, "users", user.uid, "matches", userSwipped.id),
+              userSwipped
+            );
+          }
+        }
       );
     }
   };
