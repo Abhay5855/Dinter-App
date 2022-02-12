@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import "./tindercard.css";
 import TinderCard from "react-tinder-card";
 import { collection, onSnapshot } from "firebase/firestore";
-import { doc, setDoc, getDocs , query, where} from "firebase/firestore";
+import { doc, setDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import { useUserAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
@@ -12,9 +12,11 @@ const Card = () => {
   const { user } = useUserAuth();
 
   const [profiles, setProfiles] = useState([]);
+
+  const [cards , setCards] = useState(true);
   const onCardLeftScreen = (myIdentifier) => {
-    console.log(myIdentifier + ' left the screen')
-  }
+    console.log(myIdentifier + " left the screen");
+  };
 
   // const [profiles, setProfiles] = useState([
   //   {
@@ -53,38 +55,61 @@ const Card = () => {
   useEffect(() => {
     let unsubscribe;
 
-    const passes = getDocs(collection(db, "users", user.uid, "passes")).then(
-      (snapshot) => {
-        snapshot.docs.map((doc) => doc.id);
-      }
-    );
-
-    //array of stored ids
-
-    const passedUserIds = passes.length > 0 ? passes : ["test"];
-
     const fetchData = async () => {
-      unsubscribe = onSnapshot(query(collection(db, "users"), where('id' , 'not-in' , [...passedUserIds])), (snapshot) => {
-        setProfiles(
-          snapshot.docs
-            // .filter((doc) => doc.id !== user.uid)
-            .map((doc) => ({
-              id: doc.id,
-              ...doc.data(),
-            }))
-        );
-      });
+      //nopes
+      
+      const passes = await getDocs(
+        collection(db, "users", user.uid, "passes")
+      ).then((snapshot) => snapshot.docs.map((doc) => doc.id));
+
+      console.log(passes, "passes");
+
+      const swipes = await getDocs(
+				collection(db, 'users', user.uid, 'swipes')
+			).then((snapshot) => snapshot.docs.map((doc) => doc.id));
+
+      // console.log(passes , 'passes');
+
+      const passedUserIds = passes.length > 0 ? passes : ['test'];
+			const swipedUserIds = swipes.length > 0 ? swipes : ['test'];
+     
+
+
+      //array of stored ids
+
+      unsubscribe = onSnapshot(
+        query(
+          collection(db, "users"),
+          where("id", "not-in", [...passedUserIds, ...swipedUserIds])
+        ),
+        (snapshot) => {
+          setProfiles(
+            snapshot.docs
+              .filter((doc) => doc.id !== user.uid
+              
+              )
+              .map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+              }))
+          );
+        }
+      );
+
+      console.log([...passedUserIds, ...swipedUserIds]);
     };
 
     fetchData();
 
-    return unsubscribe;
-  }, []);
+    return  unsubscribe;
+     
+    
+  }, [db]);
 
   //function to check the direaction of the swipe
   const onSwipe = (direction, idx) => {
     if (direction === "left") {
-       if(!profiles[idx]) return;
+      if (!profiles[idx]) return;
 
       const userSwipped = profiles[idx];
 
@@ -94,29 +119,28 @@ const Card = () => {
     }
 
     if (direction === "right") {
-
-      if(!profiles[idx]) return;
+      if (!profiles[idx]) return;
 
       const userSwipped = profiles[idx];
 
-      console.log(`you matched with ${userSwipped.age} and ${userSwipped.displayName}`);
-      
-      
-      setDoc(doc(db, "users", user.uid, "matches", userSwipped.id), userSwipped);
-      
+      console.log(
+        `you matched with ${userSwipped.age} and ${userSwipped.displayName}`
+      );
 
-
+      setDoc(
+        doc(db, "users", user.uid, "matches", userSwipped.id),
+        userSwipped
+      );
     }
   };
 
   return (
     <>
-      {profiles.length? (
+      {profiles ? (
         <div className="home__cards">
           {profiles.map((item, idx) => (
             <TinderCard
               key={item.name}
-              
               onSwipe={(direction) => {
                 onSwipe(direction, idx);
               }}
