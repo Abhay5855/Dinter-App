@@ -1,12 +1,13 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import "./tindercard.css";
 import TinderCard from "react-tinder-card";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, serverTimestamp } from "firebase/firestore";
 import { doc, setDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import { useUserAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import DefaultCard from "./no-cards/DefaultCard";
+import compareId from "../lib/compareId";
 
 const Card = () => {
   const { user } = useUserAuth();
@@ -124,6 +125,33 @@ const Card = () => {
           if (documentSnapshot.exists()) {
             // user has matched with you before you matched with them
             console.log(`HOORAY you matched with ${userSwipped.displayName}`);
+
+            setDoc(
+              doc(db, "users", user.uid, "swipes", userSwipped.id),
+              userSwipped
+            );
+
+            //CREATE A MATCH
+            setDoc(doc(db , 'matches' , compareId(user.uid , userSwipped.id)), {
+                 
+                  users : {
+                       [user.uid] : loggedInProfile,
+                       [userSwipped.id] : userSwipped
+                  },
+
+                  usersMatched : [user.uid , userSwipped.id],
+                  timestamp : serverTimestamp(),
+
+              
+            });
+
+            navigate("/Match" , {
+                loggedInProfile,
+                userSwipped,
+            });
+             
+            
+
           } else {
             console.log(
               `you swipped on ${userSwipped.age} and ${userSwipped.displayName}`
