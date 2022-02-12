@@ -2,15 +2,19 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import "./tindercard.css";
 import TinderCard from "react-tinder-card";
 import { collection, onSnapshot } from "firebase/firestore";
-import { doc , setDoc , getDocs} from "firebase/firestore";
+import { doc, setDoc, getDocs , query, where} from "firebase/firestore";
 import { db } from "../firebase";
 import { useUserAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import DefaultCard from "./no-cards/DefaultCard";
 
 const Card = () => {
   const { user } = useUserAuth();
 
-   const [profiles , setProfiles] = useState([]);
+  const [profiles, setProfiles] = useState([]);
+  const onCardLeftScreen = (myIdentifier) => {
+    console.log(myIdentifier + ' left the screen')
+  }
 
   // const [profiles, setProfiles] = useState([
   //   {
@@ -39,8 +43,6 @@ const Card = () => {
   // check if the users are present  from the firebase database;
   useLayoutEffect(() => {
     onSnapshot(doc(db, "users", user.uid), (snapshot) => {
-    
-
       if (!snapshot.exists) {
         navigate("/modal");
       }
@@ -50,25 +52,26 @@ const Card = () => {
   // get the users from fireabsee database
   useEffect(() => {
     let unsubscribe;
-          
 
-    const passes = getDocs(collection (db, 'users' , user.uid , 'passes')).then((snapshot) => {
-           snapshot.docs.map(doc => doc.id);
-    })
-     //array of stored ids
+    const passes = getDocs(collection(db, "users", user.uid, "passes")).then(
+      (snapshot) => {
+        snapshot.docs.map((doc) => doc.id);
+      }
+    );
 
-     const passedUserIds = passes.length > 0 ? passes : ['test']
-     
+    //array of stored ids
+
+    const passedUserIds = passes.length > 0 ? passes : ["test"];
 
     const fetchData = async () => {
-      unsubscribe = onSnapshot(collection(db, "users"), (snapshot) => {
+      unsubscribe = onSnapshot(query(collection(db, "users"), where('id' , 'not-in' , [...passedUserIds])), (snapshot) => {
         setProfiles(
           snapshot.docs
-          // .filter((doc) => doc.id !== user.uid)
-          .map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }))
+            // .filter((doc) => doc.id !== user.uid)
+            .map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }))
         );
       });
     };
@@ -78,73 +81,76 @@ const Card = () => {
     return unsubscribe;
   }, []);
 
-  
-
   //function to check the direaction of the swipe
   const onSwipe = (direction, idx) => {
+    if (direction === "left") {
+       if(!profiles[idx]) return;
 
-       if(direction === 'left'){
+      const userSwipped = profiles[idx];
 
-          //  if(!profiles[id]) return;
-            
+      console.log(`You Passed ${userSwipped.job}`);
 
-           const userSwipped = profiles[idx];
+      setDoc(doc(db, "users", user.uid, "passes", userSwipped.id), userSwipped);
+    }
 
-           console.log(`You Passed ${userSwipped.job}`);
-         
-            setDoc(doc(db, 'users' , user.uid , 'passes' , userSwipped.id), userSwipped);
-       
-     
+    if (direction === "right") {
+
+      if(!profiles[idx]) return;
+
+      const userSwipped = profiles[idx];
+
+      console.log(`you matched with ${userSwipped.age} and ${userSwipped.displayName}`);
+      
+      
+      setDoc(doc(db, "users", user.uid, "matches", userSwipped.id), userSwipped);
+      
 
 
-
-       } 
-
-       if(direction === 'right'){
-
-
-       }
-        
+    }
   };
 
   return (
     <>
-      <div className="home__cards">
-        {profiles.map((item , idx) => (
-          <TinderCard
-            key={item.name}
-            onSwipe={(direction) => {
-                  onSwipe(direction, idx);
-            }}
-           
-            preventSwipe={["up", "down"]}
-            className="swipe"
-          >
-            <div className="tindercard__container">
-              <div
-                className="card__image"
-                style={{ backgroundImage: `url(${item.photoURL})` }}
-              ></div>
+      {profiles.length? (
+        <div className="home__cards">
+          {profiles.map((item, idx) => (
+            <TinderCard
+              key={item.name}
+              
+              onSwipe={(direction) => {
+                onSwipe(direction, idx);
+              }}
+              preventSwipe={["up", "down"]}
+              className="swipe"
+            >
+              <div className="tindercard__container">
+                <div
+                  className="card__image"
+                  style={{ backgroundImage: `url(${item.photoURL})` }}
+                ></div>
 
-              <div>
-                <div className="details">
-                  <div className="details1">
-                    <p>{item.name}</p>
-                    <p>
-                      <a href="#">View Github/portfolio</a>
-                    </p>
-                  </div>
+                <div>
+                  <div className="details">
+                    <div className="details1">
+                      <p>{item.name}</p>
+                      <p>
+                        <a href="#">View Github/portfolio</a>
+                      </p>
+                    </div>
 
-                  <div className="details2">
-                    <span>Age: {item.age}</span>
-                    <span>Job: {item.job}</span>
+                    <div className="details2">
+                      <span>Age: {item.age}</span>
+                      <span>Job: {item.job}</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </TinderCard>
-        ))}
-      </div>
+            </TinderCard>
+          ))}
+        </div>
+      ) : (
+        <DefaultCard />
+      )}
     </>
   );
 };
