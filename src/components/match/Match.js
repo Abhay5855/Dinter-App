@@ -2,12 +2,14 @@
 
 
 import React from 'react'
-import { useRoutes } from 'react-router-dom';
+import { useMatch } from '../../hooks/useMatch';
 
 const Match = () => {
-    const { params } = useRoutes();
+     const {loginuser , swiped } = useMatch();
+
+     console.log(swiped);
   return (
-    <div>Match</div>
+    <></>
   )
 }
 

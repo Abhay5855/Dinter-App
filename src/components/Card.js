@@ -1,16 +1,19 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import "./tindercard.css";
 import TinderCard from "react-tinder-card";
-import { collection, DocumentSnapshot, onSnapshot, serverTimestamp } from "firebase/firestore";
+import { collection, onSnapshot, serverTimestamp } from "firebase/firestore";
 import { doc, setDoc, getDocs, query, where ,getDoc} from "firebase/firestore";
 import { db } from "../firebase";
 import { useUserAuth } from "../hooks/useAuth";
+import { useMatch } from "../hooks/useMatch"
 import { useNavigate } from "react-router-dom";
 import DefaultCard from "./no-cards/DefaultCard";
 import compareId from "../lib/compareId";
 
 const Card = () => {
   const { user } = useUserAuth();
+
+  const {loginuser , swiped , setLoginuser , setSwiped} = useMatch();
 
   const [profiles, setProfiles] = useState([]);
 
@@ -45,7 +48,7 @@ const Card = () => {
         navigate("/modal");
       }
     });
-  }, []);
+  }, [db , user.uid]);
 
   // get the users from fireabsee database
   useEffect(() => {
@@ -139,7 +142,26 @@ const Card = () => {
               usersMatched: [user.uid, userSwipped.id],
               timestamp: serverTimestamp(),
             });
-  
+
+             
+            // Navigate to the match route
+          
+
+            // navigate('/Match');
+
+             const swipped = [userSwipped];
+             const logged = [loggedInProfile];
+              
+             console.log('arr' , userSwipped);
+             console.log(userSwipped.photoURL, 'user - profile');
+             console.log(loggedInProfile.photoURL, 'loggedin - profile');
+
+            setSwiped(userSwipped.photoURL);
+            setLoginuser(loggedInProfile.photoURL);
+              
+   
+
+              
           
           } else {
             // User has swiped as first interaction between the two or didn't get swiped on...

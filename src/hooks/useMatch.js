@@ -10,9 +10,9 @@ const UserMatchContext = createContext();
 
 export function UserMatchContextProvider({children}) {
 
-        const [loginuser , setLoginuser] = useState('');
+        const [loginuser , setLoginuser] = useState([]);
 
-        const [swiped , setSwiped] = useState('');
+        const [swiped , setSwiped] = useState([]);
 
        return (
             
