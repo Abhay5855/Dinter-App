@@ -12,6 +12,7 @@ import Login from "./components/Login";
 import Modal from "./components/modal/Modal"
 import Card from './components/Card'
 import DefaultCard from "./components/no-cards/DefaultCard";
+import Match from "./components/match/Match";
 function App() {
   return (
     <div className="App">
@@ -32,6 +33,12 @@ function App() {
             <Route path="/modal" element={<Modal />}></Route>
 
             <Route path="/default" element={<DefaultCard/>}></Route>
+
+            <Route path="/Match" element={<Match/>}></Route>
+
+
+            
+
 
             
 

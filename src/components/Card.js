@@ -1,8 +1,8 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import "./tindercard.css";
 import TinderCard from "react-tinder-card";
-import { collection, onSnapshot, serverTimestamp } from "firebase/firestore";
-import { doc, setDoc, getDocs, query, where } from "firebase/firestore";
+import { collection, DocumentSnapshot, onSnapshot, serverTimestamp } from "firebase/firestore";
+import { doc, setDoc, getDocs, query, where ,getDoc} from "firebase/firestore";
 import { db } from "../firebase";
 import { useUserAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
@@ -13,9 +13,6 @@ const Card = () => {
   const { user } = useUserAuth();
 
   const [profiles, setProfiles] = useState([]);
-
-
-
 
   // const [profiles, setProfiles] = useState([
   //   {
@@ -44,7 +41,7 @@ const Card = () => {
   // check if the users are present  from the firebase database;
   useLayoutEffect(() => {
     onSnapshot(doc(db, "users", user.uid), (snapshot) => {
-      if (!snapshot.exists) {
+      if (!snapshot.exists()) {
         navigate("/modal");
       }
     });
@@ -110,60 +107,159 @@ const Card = () => {
     }
 
     if (direction === "right") {
+
+
       if (!profiles[idx]) return;
 
       const userSwipped = profiles[idx];
-
-      // Now If the user swipes right we need to get the user information from the db
-      const loggedInProfile = await await getDocs(
-        doc(db, "users", user.uid)
+  
+      const loggedInProfile = await (
+        await getDoc(doc(db, 'users', user.uid))
       ).data();
-
-      //Check wether the user has swipped on you
-      getDocs(doc(db, "users", userSwipped.id, user.uid)).then(
+  
+      // Check if the user swiped on you...
+  
+      getDoc(doc(db, 'users', userSwipped.id, 'swipes', user.uid)).then(
         (documentSnapshot) => {
           if (documentSnapshot.exists()) {
-            // user has matched with you before you matched with them
-            console.log(`HOORAY you matched with ${userSwipped.displayName}`);
-
+            // user has matched with you before you matched with them...
+            console.log(`Hooray, You MATCHED with ${userSwipped.displayName}`);
+  
             setDoc(
-              doc(db, "users", user.uid, "swipes", userSwipped.id),
+              doc(db, 'users', user.uid, 'swipes', userSwipped.id),
               userSwipped
             );
-
-            //CREATE A MATCH
-            setDoc(doc(db , 'matches' , compareId(user.uid , userSwipped.id)), {
-                 
-                  users : {
-                       [user.uid] : loggedInProfile,
-                       [userSwipped.id] : userSwipped
-                  },
-
-                  usersMatched : [user.uid , userSwipped.id],
-                  timestamp : serverTimestamp(),
-
-              
+  
+            // Create a MATCH!
+            setDoc(doc(db, 'matches', compareId(user.uid, userSwipped.id)), {
+              users: {
+                [user.uid]: loggedInProfile,
+                [userSwipped.id]: userSwipped,
+              },
+              usersMatched: [user.uid, userSwipped.id],
+              timestamp: serverTimestamp(),
             });
-
-            navigate("/Match" , {
-                loggedInProfile,
-                userSwipped,
-            });
-             
-            
-
+  
+          
           } else {
-            console.log(
-              `you swipped on ${userSwipped.age} and ${userSwipped.displayName}`
-            );
-
+            // User has swiped as first interaction between the two or didn't get swiped on...
+            console.log(`You swiped on ${userSwipped.displayName}`);
             setDoc(
-              doc(db, "users", user.uid, "matches", userSwipped.id),
+              doc(db, 'users', user.uid, 'swipes', userSwipped.id),
               userSwipped
             );
           }
         }
       );
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // if (!profiles[idx]) return;
+
+      // const userSwipped = profiles[idx];
+
+      // console.log(`You matches ${userSwipped.job}`);
+
+      // setDoc(doc(db, "users", user.uid, "swipes", userSwipped.id), userSwipped);
+
+
+
+      // // Now If the user swipes right we need to get the user information from the db
+      
+      // const loggedInProfile = await(await getDoc(db , 'users' , user.uid)).data();
+
+      
+
+      // //Check wether the user has swipped on you
+     
+      // getDocs(doc(db , 'users',userSwipped.id, 'swipes', user.uid)).then((DocumentSnapshot) => {
+              
+      //               if(DocumentSnapshot.exists()){
+                            
+      //                    console.log(`Hooray You have matched with ${userSwipped.displayName}`)
+
+      //                    setDoc(doc(db , "users" , user.uid , "swipes", userSwipped.id), userSwipped)
+
+
+      //                    //create Match
+
+      //                    setDoc(doc(db, 'matches' , compareId(user.id , userSwipped.id)), {
+
+      //                          users : {
+
+      //                           [user.uid] : loggedInProfile,
+      //                           [userSwipped.id] : userSwipped,
+
+      //                          },
+
+      //                          usersMatched : [user.uid , userSwipped.id],
+      //                          timestamp : serverTimestamp(),
+      //                    })
+
+
+      //               }
+      //               else {
+
+      //                  console.log(`You swiped on ${user.displayName}`);
+
+      //                 setDoc(doc(db , "users" , user.uid , "swipes", userSwipped.id), userSwipped)
+
+      //               }
+      // })
+
+      // getDoc(doc(db, "users", userSwipped.id, user.uid)).then(
+      //   (documentSnapshot) => {
+      //     if (documentSnapshot.exists()) {
+      //       // user has matched with you before you matched with them
+      //       console.log(`HOORAY you matched with ${userSwipped.displayName}`);
+
+      //       setDoc(
+      //         doc(db, 'users', user.uid, 'swipes', userSwipped.id),
+      //         userSwipped
+      //       );
+
+      //       //CREATE A MATCH
+      //       setDoc(doc(db, 'matches', compareId(user.uid, userSwipped.id)), {
+      //         users: {
+      //           [user.uid]: loggedInProfile,
+      //           [userSwipped.id]: userSwipped,
+      //         },
+      //         usersMatched: [user.uid, userSwipped.id],
+      //         timestamp: serverTimestamp(),
+      //       });
+
+      //       // navigate("/Match", {
+      //       //   loggedInProfile,
+      //       //   userSwipped,
+      //       // });
+      //     } else {
+      //       console.log(
+      //         `you swipped on ${userSwipped.age} and ${userSwipped.displayName}`
+      //       );
+
+      //       setDoc(
+      //         doc(db, 'users', user.uid, 'swipes', userSwipped.id),
+      //         userSwipped
+      //       );
+      //     }
+      //   }
+      // );
     }
   };
 
