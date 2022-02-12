@@ -1,7 +1,7 @@
 import "./App.css";
 import { UserAuthContextProvider } from "./hooks/useAuth";
-import Privateroutes from "./components/routes/Privateroutes";
-import Publicroutes from "./components/routes/Publicroutes";import {
+import {UserMatchContextProvider} from "./hooks/useMatch";
+import {
   BrowserRouter,
   Routes,
   Route
@@ -16,6 +16,7 @@ import Match from "./components/match/Match";
 function App() {
   return (
     <div className="App">
+      <UserMatchContextProvider>
       <UserAuthContextProvider>
         <BrowserRouter>
           <Routes>
@@ -36,7 +37,7 @@ function App() {
 
             <Route path="/Match" element={<Match/>}></Route>
 
-
+             
             
 
 
@@ -49,6 +50,9 @@ function App() {
 
         <Publicroutes /> */}
       </UserAuthContextProvider>
+
+      </UserMatchContextProvider>
+      
     </div>
   );
 }

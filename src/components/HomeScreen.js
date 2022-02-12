@@ -24,14 +24,8 @@ const HomeScreen = () => {
   };
 
   //tinder cards
-
-  const onSwipe = (direction) => {
-    console.log("You swiped: " + direction);
-  };
-
-  const onCardLeftScreen = (myIdentifier) => {
-    console.log(myIdentifier + " left the screen");
-  };
+  
+  
 
   
 
@@ -51,10 +45,9 @@ const HomeScreen = () => {
           <ChatBubbleIcon className="chat__icon" />
         </div>
       </nav>
+   
 
-      
 
-      {/* react card */}
       <Card />
     </div>
   );
