@@ -12,7 +12,7 @@ const userAuthContext = createContext();
 export function UserAuthContextProvider({ children }) {
   //  state to check the user
   const [user, setUser] = useState(null);
-  const [error , setError] = useState(null);
+  // const [error , setError] = useState(null);
 
   // google signin function
   function googleSignIn() {
@@ -28,7 +28,8 @@ export function UserAuthContextProvider({ children }) {
 
     }).catch((error) => {
       // An error happened.
-      setError(error);
+      console.log(error);
+      // setError(error);
     });
 
    }

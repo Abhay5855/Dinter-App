@@ -7,21 +7,21 @@ import "./home.css";
 
 
 const HomeScreen = () => {
-  const { googleSignout, user } = useUserAuth();
+  const {user } = useUserAuth();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const logout = async (e) => {
-    e.preventDefault();
+  // const logout = async (e) => {
+  //   e.preventDefault();
 
-    try {
-      await googleSignout();
-      navigate("/");
-      console.log("logout successful");
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //   try {
+  //     await googleSignout();s
+  //     navigate("/");
+  //     console.log("logout successful");
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   //tinder cards
   

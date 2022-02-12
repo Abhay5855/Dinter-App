@@ -13,7 +13,7 @@ import compareId from "../lib/compareId";
 const Card = () => {
   const { user } = useUserAuth();
 
-  const {loginuser , swiped , setLoginuser , setSwiped} = useMatch();
+  const {setLoginuser , setSwiped} = useMatch();
 
   const [profiles, setProfiles] = useState([]);
 
@@ -48,7 +48,7 @@ const Card = () => {
         navigate("/modal");
       }
     });
-  }, [db , user.uid]);
+  }, [navigate,user.uid]);
 
   // get the users from fireabsee database
   useEffect(() => {
@@ -149,8 +149,8 @@ const Card = () => {
 
             // navigate('/Match');
 
-             const swipped = [userSwipped];
-             const logged = [loggedInProfile];
+            //  const swipped = [userSwipped];
+            //  const logged = [loggedInProfile];
               
              console.log('arr' , userSwipped);
              console.log(userSwipped.photoURL, 'user - profile');
