@@ -2,12 +2,12 @@
 
 
 import React from 'react'
-import { useMatch } from '../../hooks/useMatch';
+// import { useMatch } from '../../hooks/useMatch';
 
 const Match = () => {
-     const {loginuser , swiped } = useMatch();
+    //  const {swiped } = useMatch();
 
-     console.log(swiped);
+    //  console.log(swiped);
   return (
     <></>
   )

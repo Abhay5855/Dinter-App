@@ -94,7 +94,7 @@ const Card = () => {
     fetchData();
     // unsubscribe to the changes
     return unsubscribe;
-  }, [db]);
+  }, [user.uid]);
 
   //function to check the direaction of the swipe
   const onSwipe = async (direction, idx) => {
@@ -309,7 +309,7 @@ const Card = () => {
                     <div className="details1">
                       <p>{item.name}</p>
                       <p>
-                        <a href="#">View Github/portfolio</a>
+                        <a href={item.devlink}>View Github/portfolio</a>
                       </p>
                     </div>
 

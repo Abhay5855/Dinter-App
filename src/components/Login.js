@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { useUserAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import './login.css'
 const Login = () => {
-  const { googleSignIn, user } = useUserAuth();
+  const { googleSignIn} = useUserAuth();
 
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
@@ -16,7 +16,8 @@ const Login = () => {
       navigate("/home");
        console.log('login successful');
     } catch (error) {
-      setError(error);
+      // setError(error);
+      console.log(error);
     }
   };
 
